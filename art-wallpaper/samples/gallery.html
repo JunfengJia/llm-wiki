@@ -1,0 +1,303 @@
+<title>每日一画 · Art Wallpaper</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600&family=Noto+Serif+SC:wght@400;600&display=swap">
+<style>
+  /* Layout: one quiet gallery wall — a scrollable handscroll band up top, then framed works in rooms. */
+  :root {
+    --wall: #26231e;        /* warm charcoal gallery wall (dark-first) */
+    --fg: #e9e2d2;
+    --muted: #9a917e;
+    --seal: #c3432b;        /* 印章红 — seal red */
+    --matte: #f0e9d8;       /* mat board stays cream in both themes, like real matting */
+    --frame: #4a443a;
+    --shadow: rgba(0, 0, 0, .55);
+    --display: "Fraunces", "Noto Serif SC", "Songti SC", serif;
+    --cjk: "Noto Serif SC", "Songti SC", "SimSun", serif;
+    --ui: ui-sans-serif, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --wall: #ebe4d6; --fg: #2b251b; --muted: #7d7461; --seal: #b03a24;
+      --matte: #f7f2e5; --frame: #c9c0ad; --shadow: rgba(60, 50, 30, .3);
+      color-scheme: light;
+    }
+  }
+  :root[data-theme="light"] {
+    --wall: #ebe4d6; --fg: #2b251b; --muted: #7d7461; --seal: #b03a24;
+    --matte: #f7f2e5; --frame: #c9c0ad; --shadow: rgba(60, 50, 30, .3);
+    color-scheme: light;
+  }
+
+  body {
+    background: var(--wall); color: var(--fg);
+    font-family: var(--ui); margin: 0;
+    padding-block: 48px 64px; padding-inline: clamp(16px, 4vw, 40px);
+  }
+  .room { max-width: 1180px; margin: 0 auto; }
+
+  header h1 {
+    font-family: var(--display); font-weight: 450; text-wrap: balance;
+    font-size: clamp(30px, 5vw, 44px); margin: 0 0 10px; letter-spacing: .01em;
+  }
+  header h1 .cn { font-family: var(--cjk); }
+  header p { max-width: 62ch; line-height: 1.65; color: var(--muted); margin: 0 0 8px; }
+  header p strong { color: var(--fg); font-weight: 600; }
+
+  /* ———— handscroll hero: drag it, or let it drift ———— */
+  .scroll-wrap { margin: 36px 0 10px; }
+  .scroll-frame {
+    border: 1px solid var(--frame); background: var(--matte);
+    padding: 10px; box-shadow: 0 18px 40px -18px var(--shadow);
+  }
+  .scroll-view {
+    overflow-x: auto; overscroll-behavior-x: contain; height: clamp(190px, 32vw, 330px);
+    scrollbar-width: thin;
+  }
+  .scroll-view img { height: 100%; width: auto; max-width: none; display: block; }
+  .scroll-label {
+    display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; margin-top: 10px;
+  }
+  .scroll-label .t { font-family: var(--cjk); font-weight: 600; font-size: 17px; }
+  .scroll-label .m { color: var(--muted); font-size: 13px; }
+  .scroll-label .hint { margin-left: auto; color: var(--seal); font-size: 12.5px; letter-spacing: .04em; }
+
+  /* ———— rooms ———— */
+  h2 {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--display); font-weight: 450; font-size: clamp(21px, 3vw, 26px);
+    margin: 56px 0 6px; letter-spacing: .01em;
+  }
+  h2 .cn { font-family: var(--cjk); }
+  h2::before { content: ""; width: 11px; height: 11px; background: var(--seal); flex: none; }
+  .roomnote { color: var(--muted); font-size: 13.5px; margin: 0 0 22px; max-width: 70ch; line-height: 1.6; }
+
+  .grid {
+    display: grid; gap: 30px 26px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  figure { margin: 0; min-width: 0; }
+  figure a.art {
+    display: block; aspect-ratio: 4 / 3; max-width: 100%;
+    background: var(--matte); border: 1px solid var(--frame); padding: 6%;
+    box-sizing: border-box; box-shadow: 0 14px 30px -14px var(--shadow);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  figure a.art:hover { transform: translateY(-3px); box-shadow: 0 22px 38px -16px var(--shadow); }
+  figure a.art:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; }
+  figure a.art img {
+    width: 100%; height: 100%; object-fit: contain; display: block;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
+  }
+  figure.missing a.art { display: grid; place-items: center; color: #7d7461; font-size: 13px; }
+  figcaption { padding: 12px 2px 0; }
+  figcaption .t {
+    font-family: var(--cjk); font-weight: 600; font-size: 15.5px; line-height: 1.45;
+  }
+  figcaption .a { font-size: 13px; margin-top: 3px; }
+  figcaption .m { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+
+  footer {
+    margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--frame);
+    color: var(--muted); font-size: 13px; line-height: 1.7; max-width: 76ch;
+  }
+  footer a { color: inherit; }
+  #sandboxnote {
+    display: none; margin: 28px 0 0; padding: 14px 16px;
+    border: 1px solid var(--seal); color: var(--fg); font-size: 14px; line-height: 1.6;
+  }
+  #sandboxnote button {
+    font: 600 14px var(--ui); color: var(--matte); background: var(--seal);
+    border: 0; padding: 8px 14px; margin-top: 10px; cursor: pointer;
+  }
+  #sandboxnote button:hover { filter: brightness(1.1); }
+  @media (prefers-reduced-motion: reduce) {
+    figure a.art { transition: none; }
+  }
+</style>
+
+<div class="room">
+<header>
+  <h1><span class="cn">每日一画</span> · Art Wallpaper</h1>
+  <p>Curation preview for the daily desktop-wallpaper tool. These are the <strong>curated classics</strong> in the default config — the live rotation also pulls Monet and Chinese paintings from the Art Institute of Chicago, Met and Cleveland open APIs, so the pool is a few hundred works, not just this wall.</p>
+  <p>Every image below is public domain, loaded straight from Wikimedia Commons. Click a frame to open its source page.</p>
+  <div id="sandboxnote">
+    <strong>claude.ai 沙箱屏蔽了外链图片。</strong> The artifact sandbox blocks images from museum servers.
+    Save this page and open the file locally — every frame loads there.
+    <br><button id="savepage">保存本页 · Save page</button>
+    <span id="savemsg"></span>
+  </div>
+</header>
+
+<div class="scroll-wrap">
+  <div class="scroll-frame">
+    <div class="scroll-view" id="scrollview">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wang_Ximeng._A_Thousand_Li_of_Rivers_and_Mountains._(Complete,_51,3x1191,5_cm)._1113._Palace_museum,_Beijing.jpg?width=12000"
+           alt="千里江山图 full handscroll" loading="eager">
+    </div>
+  </div>
+  <div class="scroll-label">
+    <span class="t">千里江山图</span>
+    <span class="m">王希孟 Wang Ximeng · 1113 · 故宫博物院 — 39,974 × 1,600 px scan</span>
+    <span class="hint">手卷模式：壁纸每天裁取一段 → a new section each day</span>
+  </div>
+</div>
+
+<h2><span class="cn">莫奈</span> · Monet &amp; Impressionism</h2>
+<p class="roomnote">AIC 拥有全球最多的《麦垛》与大量睡莲 — 这些都会通过 API 自动进入轮换，权重最高。</p>
+<div class="grid">
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Claude_Monet,_Impression,_soleil_levant.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="Impression, Sunrise" src="https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet,_Impression,_soleil_levant.jpg?width=1200"></a>
+    <figcaption><div class="t">印象·日出 Impression, Sunrise</div>
+      <div class="a">Claude Monet · 1872</div><div class="m">Musée Marmottan Monet</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="Water Lilies 1906" src="https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg?width=1200"></a>
+    <figcaption><div class="t">睡莲 Water Lilies</div>
+      <div class="a">Claude Monet · 1906</div><div class="m">Art Institute of Chicago</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lily_Pond_-_1933.441_-_Art_Institute_of_Chicago.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="Water Lily Pond" src="https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Water_Lily_Pond_-_1933.441_-_Art_Institute_of_Chicago.jpg?width=1200"></a>
+    <figcaption><div class="t">睡莲池 Water Lily Pond</div>
+      <div class="a">Claude Monet · 1900</div><div class="m">Art Institute of Chicago</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Stacks_of_Wheat_(End_of_Summer)_-_1985.1103_-_Art_Institute_of_Chicago.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="Stacks of Wheat (End of Summer)" src="https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Stacks_of_Wheat_(End_of_Summer)_-_1985.1103_-_Art_Institute_of_Chicago.jpg?width=1200"></a>
+    <figcaption><div class="t">麦垛·夏末 Stacks of Wheat</div>
+      <div class="a">Claude Monet · 1890–91</div><div class="m">Art Institute of Chicago</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Stacks_of_Wheat_(Sunset,_Snow_Effect)_-_1922.431_-_Art_Institute_of_Chicago.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="Stacks of Wheat (Sunset, Snow Effect)" src="https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Stacks_of_Wheat_(Sunset,_Snow_Effect)_-_1922.431_-_Art_Institute_of_Chicago.jpg?width=1200"></a>
+    <figcaption><div class="t">麦垛·雪后夕照 Sunset, Snow Effect</div>
+      <div class="a">Claude Monet · 1890–91</div><div class="m">Art Institute of Chicago</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_-_Google_Art_Project.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="Woman with a Parasol" src="https://commons.wikimedia.org/wiki/Special:FilePath/Claude_Monet_-_Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_-_Google_Art_Project.jpg?width=1200"></a>
+    <figcaption><div class="t">撑阳伞的女人 Woman with a Parasol</div>
+      <div class="a">Claude Monet · 1875</div><div class="m">National Gallery of Art</div></figcaption>
+  </figure>
+</div>
+
+<h2><span class="cn">中国山水</span> · Chinese Landscape</h2>
+<p class="roomnote">北宋至元的立轴与手卷。立轴用博物馆卡纸模式居中呈现；手卷每天滚动一段。Met 亚洲部（department 6）的宋元书画也在轮换池里。</p>
+<div class="grid">
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Guo_Xi_-_Early_Spring_(large).jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="早春图" src="https://commons.wikimedia.org/wiki/Special:FilePath/Guo_Xi_-_Early_Spring_(large).jpg?width=1200"></a>
+    <figcaption><div class="t">早春图</div>
+      <div class="a">郭熙 Guo Xi · 1072 · 北宋</div><div class="m">台北故宫 National Palace Museum</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Fan_Kuan_-_Travelers_Among_Mountains_and_Streams_-_Google_Art_Project.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="溪山行旅图" src="https://commons.wikimedia.org/wiki/Special:FilePath/Fan_Kuan_-_Travelers_Among_Mountains_and_Streams_-_Google_Art_Project.jpg?width=1200"></a>
+    <figcaption><div class="t">溪山行旅图</div>
+      <div class="a">范宽 Fan Kuan · 约 1000 · 北宋</div><div class="m">台北故宫 National Palace Museum</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:北宋_郭熙_樹色平遠圖_卷_-Old_Trees,_Level_Distance_MET_DP167812.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="树色平远图" src="https://commons.wikimedia.org/wiki/Special:FilePath/北宋_郭熙_樹色平遠圖_卷_-Old_Trees,_Level_Distance_MET_DP167812.jpg?width=1200"></a>
+    <figcaption><div class="t">树色平远图 Old Trees, Level Distance</div>
+      <div class="a">郭熙 Guo Xi · 约 1080 · 北宋</div><div class="m">The Met · 手卷</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Huang_Gongwang._Dwelling_in_the_Fuchun_Mountains._detail._National_Palace_Museum,_Taipei.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="富春山居图（局部）" src="https://commons.wikimedia.org/wiki/Special:FilePath/Huang_Gongwang._Dwelling_in_the_Fuchun_Mountains._detail._National_Palace_Museum,_Taipei.jpg?width=1200"></a>
+    <figcaption><div class="t">富春山居图（局部）</div>
+      <div class="a">黄公望 Huang Gongwang · 1350 · 元</div><div class="m">台北故宫 National Palace Museum · 手卷</div></figcaption>
+  </figure>
+</div>
+
+<h2><span class="cn">其他经典</span> · A Few Others</h2>
+<p class="roomnote">口味外延：后印象派、浮世绘、浪漫主义。喜欢哪个方向就在 config 里加权。</p>
+<div class="grid">
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="The Starry Night" src="https://commons.wikimedia.org/wiki/Special:FilePath/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg?width=1200"></a>
+    <figcaption><div class="t">星夜 The Starry Night</div>
+      <div class="a">Vincent van Gogh · 1889</div><div class="m">MoMA</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Wheat_Field_with_Cypresses_MET_DT1567.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="Wheat Field with Cypresses" src="https://commons.wikimedia.org/wiki/Special:FilePath/Wheat_Field_with_Cypresses_MET_DT1567.jpg?width=1200"></a>
+    <figcaption><div class="t">麦田与柏树 Wheat Field with Cypresses</div>
+      <div class="a">Vincent van Gogh · 1889</div><div class="m">The Met</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Tsunami_by_hokusai_19th_century.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="The Great Wave off Kanagawa" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tsunami_by_hokusai_19th_century.jpg?width=1200"></a>
+    <figcaption><div class="t">神奈川冲浪里 The Great Wave</div>
+      <div class="a">葛饰北斋 Hokusai · 约 1831</div><div class="m">浮世绘 Ukiyo-e</div></figcaption>
+  </figure>
+  <figure>
+    <a class="art" href="https://commons.wikimedia.org/wiki/File:Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg" target="_blank" rel="noopener">
+      <img loading="lazy" alt="Wanderer above the Sea of Fog" src="https://commons.wikimedia.org/wiki/Special:FilePath/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg?width=1200"></a>
+    <figcaption><div class="t">雾海上的旅人 Wanderer above the Sea of Fog</div>
+      <div class="a">Caspar David Friedrich · 1818</div><div class="m">Hamburger Kunsthalle</div></figcaption>
+  </figure>
+</div>
+
+<footer>
+  桌面上的呈现由 <code>artwallpaper.py</code> 渲染：接近屏幕比例的作品全屏裁切（fill）；立轴与方构图配博物馆卡纸 + 阴影 + 角落标签（matte）；超宽手卷每日取一段。
+  所有图片均为公有领域，直连 Wikimedia Commons 原图；点击画框查看来源与授权页。
+  调整口味 → 编辑 <code>~/.art-wallpaper/config.toml</code> 中各 collection 的 weight。
+</footer>
+</div>
+
+<script>
+  // Capture the pristine page before any DOM mutation, so "Save page" ships a clean copy.
+  const PAGE_SRC = "<!doctype html>\n" + document.documentElement.outerHTML;
+
+  // Blocked hotlink (claude.ai sandbox CSP) → keep the frame, show a note, offer a local save.
+  const note = document.getElementById("sandboxnote");
+  const showNote = () => { note.style.display = "block"; };
+  const markBroken = img => {
+    showNote();
+    const fig = img.closest("figure");
+    if (!fig) return;
+    fig.classList.add("missing");
+    img.replaceWith(Object.assign(document.createElement("span"),
+      { textContent: "image unavailable — open source page" }));
+  };
+  document.querySelectorAll("figure a.art img, .scroll-view img").forEach(img => {
+    if (img.complete && img.naturalWidth === 0) markBroken(img);
+    else img.addEventListener("error", () => markBroken(img));
+  });
+
+  document.getElementById("savepage").addEventListener("click", async () => {
+    const msg = document.getElementById("savemsg");
+    const downloads = await (window.claude?.use?.("downloads") ?? null);
+    if (!downloads) {
+      msg.textContent = " 此视图无法保存 — 打开仓库中的 art-wallpaper/samples/gallery.html";
+      return;
+    }
+    try {
+      await downloads.save({ filename: "art-wallpaper-gallery.html", data: PAGE_SRC });
+      msg.textContent = " 已保存 — 用浏览器打开该文件。Saved; open it in your browser.";
+    } catch (e) {
+      if (e && e.code === "declined") return;
+      msg.textContent = " 保存不可用 — 打开仓库中的 art-wallpaper/samples/gallery.html";
+    }
+  });
+  // Handscroll drifts slowly until the viewer touches it; respects reduced motion.
+  const view = document.getElementById("scrollview");
+  if (view && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let auto = true, last;
+    ["pointerdown", "wheel", "touchstart", "keydown"].forEach(ev =>
+      view.addEventListener(ev, () => { auto = false; }, { passive: true }));
+    const drift = t => {
+      if (!auto) return;
+      if (last !== undefined) {
+        view.scrollLeft += (t - last) * 0.012;
+        if (view.scrollLeft + view.clientWidth >= view.scrollWidth - 2) auto = false;
+      }
+      last = t;
+      requestAnimationFrame(drift);
+    };
+    requestAnimationFrame(drift);
+  }
+</script>
